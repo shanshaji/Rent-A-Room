@@ -1,0 +1,44 @@
+<h2> <%= @room.name %> </h2>
+<p> 
+	<% if (user_signed_in?)&&(can? :update, @room) %>
+
+		<%= link_to "Edit",edit_room_path(@room.id) %>
+		<%= link_to "Delete",room_path(@room.id), method: :delete, data: {confirm: "Are you sure?"} %>
+	<% end %>
+
+</p>
+
+<p>  <%= @room.description %> </p>
+<p> INR <%= @room.price %></p>
+<p>	<%= @room.rules %> </p>
+<p>	<%= @room.address %> </p>
+
+<%= image_tag @room.images, size: "600x315" %>
+
+
+<%= link_to "list rooms", rooms_path %>
+
+<h2> Book the room </h2>
+<% if user_signed_in? %>
+	<%= form_for(Booking.new) do |f| %>
+  		
+
+	  <div class="field">
+	    <%= f.label :start_date %>
+	    <%= f.date_select :start_date %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :end_date %>
+	    <%= f.date_select :end_date %>
+	  </div>
+
+	  <%= f.hidden_field :room_id, value: @room.id %>
+	  <div class="actions">
+	    <%= f.submit "BOOK" %>
+	  </div>
+		
+	<%end%>
+<% else %>
+	<p> You need to sign in before adding products to your cart </p>
+<% end %>
