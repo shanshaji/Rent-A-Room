@@ -1,0 +1,22 @@
+<h3>Authorize Rooms</h3>
+
+<% if @rooms.empty? %>
+	<h4> No Rooms to be authorized </h4>
+<% end %>
+<ol>
+	<% @rooms.each do |room| %>
+		<% if room.is_authorized== false %>
+			<li> 
+				<%= link_to room.name,room_path(room.id) %>
+				-INR <%= room.price%>- <%= room.user.username %> 
+				<%= image_tag room.images, size: "60x50"%> 
+			
+				<%= form_for room do |f| %>
+					<%= f.hidden_field :is_authorized, :value => true %>
+					<%= f.submit "Authorize" %>
+				<%end%>			
+			</li>
+		<%end%> 
+	<% end %>
+
+

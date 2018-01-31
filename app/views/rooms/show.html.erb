@@ -8,12 +8,12 @@
 
 </p>
 
+
+<%= image_tag @room.images, size: "600x315" %>
 <p>  <%= @room.description %> </p>
 <p> INR <%= @room.price %></p>
 <p>	<%= @room.rules %> </p>
 <p>	<%= @room.address %> </p>
-
-<%= image_tag @room.images, size: "600x315" %>
 
 
 <%= link_to "list rooms", rooms_path %>
@@ -40,5 +40,5 @@
 		
 	<%end%>
 <% else %>
-	<p> You need to sign in before adding products to your cart </p>
+	<p> You need to sign in before booking a room</p>
 <% end %>

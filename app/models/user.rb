@@ -17,17 +17,16 @@ class User < ApplicationRecord
 
   before_validation :assign_guest_role
 
+  def role?(role)
+    self.role.name == role
+  end 
+
   def assign_guest_role
-    if self.role.name == "admin"
+    if self.role_id == 1
     elsif self.rooms.empty?
   	 self.role_id = Role.last.id
     elsif self.role.name == "guest"
       self.role_id = Role.second.id
-      
     end
   end
-  
-  def role?(role)
-    self.role.name == role
-  end 
 end

@@ -43,6 +43,9 @@ class RoomsController < ApplicationController
     @rooms = current_user.rooms
   end
 
+  def authorize_rooms
+    @rooms = Room.where(:is_authorized => 'f')
+  end
   private
 
   def room_params

@@ -26,14 +26,14 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.user_id = current_user.id
-    @booking.price= @booking.room.price * (@booking.end_date - @booking.start_date )
+   
 
     respond_to do |format|
       if @booking.save
-        format.html { redirect_to @booking, notice: 'Booking was successfully created.' }
+        format.html { redirect_to @booking.room, notice: 'Booking was successfully created.' }
         format.json { render :show, status: :created, location: @booking }
       else
-        format.html { render :new }
+        format.html { render :edit }
         format.json { render json: @booking.errors, status: :unprocessable_entity }
       end
     end

@@ -10,6 +10,7 @@ class Room < ApplicationRecord
 
   before_validation :set_lat_long
   after_save :set_user_host
+  after_update :send_authorization
 
  def set_lat_long
   	
@@ -30,5 +31,11 @@ class Room < ApplicationRecord
   		self.user.update_attributes!(role_id:Role.second.id)
   	end
   	
+  end
+
+  def send_authorization
+    if self.is_authorized == true
+      NotificationMailer.authorization(self).deliver!
+    end
   end
 end

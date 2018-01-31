@@ -1,27 +1,18 @@
-<h3>Rooms</h3>
+<h3>Rooms(<%= @rooms.length %>)</h3>
 
 <% if @rooms.empty? %>
-	<h2> No Rooms found </h2>
+	<h4> No Rooms found </h4>
 
 <% else%>
-<h2> Rooms(<%= @rooms.length %>)</h2>
-
 <ol>
 	<% @rooms.each do |room| %>
+	<% if room.is_authorized == true %>
 	<li> 
 		<%= link_to room.name,room_path(room.id) %>
 		- INR <%= room.price%> - 
-		<%= image_tag room.images, size: "60x50"%> -
-
-		<% if (user_signed_in?) && (can? :manage, Room) && (room.is_authorized==false)%>
-			<%= form_for room do |f| %>
-						<label>Authorize : </label>
-						<div><%= f.hidden_field :is_authorized, :value => true %></div>
-						<br/>
-						<%= f.submit "Authorize" %>
-			<%end%>			
-		<%end%> 
+		<%= image_tag room.images, size: "60x50"%> 
 	</li>
+	<% end %>
 	<% end %>
 <%end %><br/>
 

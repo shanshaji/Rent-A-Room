@@ -9,9 +9,11 @@ class Ability
         elsif user.role? "host"
             can :read, [Room, City, Amenity]
             can :create, Room
+            can :my_rooms, Room
             can [:update, :destroy], Room do |room| 
                 room.user_id == user.id 
             end
+            
         elsif user.role? "guest"
             can :read, [Room, City, Amenity]
             can [:create], Room 
