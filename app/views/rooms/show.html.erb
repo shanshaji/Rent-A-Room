@@ -7,13 +7,35 @@
 	<% end %>
 
 </p>
-
-
-<%= image_tag @room.images, size: "600x315" %>
+<!--<script>
+// var imagesHandle = document.querySelector("#images");
+//     var i = 0;
+//     setInterval(function(){
+// 			var img = document.createElement('img');
+// 			var src = document.createAttribute('src');
+// 			src.value=images[i]
+// 			var text = document.createTextNode(task);
+// 			img.setAttributeNode(src);
+// 			li.appendChild(text);
+// 			imagesHandle.appendChild(img);
+//             i++;
+//             if(i==@room.images.length){
+//                 i=0;
+//             }
+//    },3000);
+ </script>
+ <p> id="images"  </p> -->
+<%= image_tag @room.images[1], size: "600x315" %>
 <p>  <%= @room.description %> </p>
 <p> INR <%= @room.price %></p>
 <p>	<%= @room.rules %> </p>
 <p>	<%= @room.address %> </p>
+<p> <iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCIFNqN6KH3aIqW32C6L31VNGKITmxtHlI&q=<%= @room.latitude %>,<%= @room.longitude %>" allowfullscreen>
+</iframe> </p>
 
 
 <%= link_to "list rooms", rooms_path %>

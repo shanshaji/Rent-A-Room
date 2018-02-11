@@ -11,6 +11,35 @@
 		- INR <%= room.price%> - 
 		<%= image_tag room.images, size: "60x50"%> - Authorization:<%= room.is_authorized %>
 
+		
+
+		
+			<%= form_for(SpecialPrice.new) do |f| %>
+  				<div class="field">
+    				<%= f.hidden_field :room_id, :value => room.id %>
+  				</div>
+
+  				<div class="field">
+    				<%= f.label :start_date %>
+    				<%= f.date_select :start_date %>
+  				</div>
+
+  				<div class="field">
+    				<%= f.label :end_date %>
+    				<%= f.date_select :end_date %>
+  				</div>
+
+  				<div class="field">
+    				<%= f.label :price %>
+    				<%= f.text_field :price %>
+  				</div>
+
+  				<div class="actions">
+    				<%= f.submit %>
+  				</div>
+			<% end %>
+		
+
 		<% room.bookings.each do |booking| %>
 			<% if booking.is_confirmed == false %>
 				<%= form_for booking do |f| %>

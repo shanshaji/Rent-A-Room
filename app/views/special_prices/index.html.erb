@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Special Prices</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Room</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th>Price</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @special_prices.each do |special_price| %>
+      <tr>
+        <td><%= special_price.room_id %></td>
+        <td><%= special_price.start_date %></td>
+        <td><%= special_price.end_date %></td>
+        <td><%= special_price.price %></td>
+        <td><%= link_to 'Show', special_price %></td>
+        <td><%= link_to 'Destroy', special_price, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Special Price', rooms_my_rooms_path %>
+

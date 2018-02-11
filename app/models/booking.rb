@@ -38,15 +38,28 @@ class Booking < ApplicationRecord
 	
 
 	def submit_price
-		 self.price= self.room.price * (self.end_date - self.start_date )
+		self.price=0
+		current_dates =(self.start_date..self.end_date).to_a
+		special_dates = SpecialPrice.where('room_id=?', self.room_id)
+		current_dates.each do |date|
+			temp=0
+			special_dates.each do |special|
+				special_price_dates = (special.start_date..special.end_date).to_a
+				if special_price_dates.include?(date)
+					temp =special.price
+					break;
+				else
+					temp =self.room.price
+				end
+			end
+			self.price += temp
+		end
 	end
 
 	def send_confirmation
-    if self.is_confirmed == true
-      NotificationMailer.confirmation(self).deliver!
-    end
-  end
+		NotifierJob.perform_later(self)   
+  	end
   def approve_booking
-  	NotificationMailer.approve(self).deliver!
+  	NotifierJob.perform_later(self)
   end
 end

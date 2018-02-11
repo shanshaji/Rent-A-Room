@@ -3,10 +3,12 @@ class Room < ApplicationRecord
 	has_many :amenities, through: :amenity_rooms
 	belongs_to :user
   has_many :bookings
+  has_many :special_prices
 	validates_presence_of :name, :description, :price, :rules, :address, :city_id, :user_id
   #validates_numericality_of :latitude, :longitude
   validates_length_of :description, minimum: 150
-  mount_uploader :images, ImagesUploader
+  mount_uploaders :images, ImagesUploader
+  serialize :images, JSON
 
   before_validation :set_lat_long
   after_save :set_user_host

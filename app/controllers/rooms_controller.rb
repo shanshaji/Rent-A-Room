@@ -49,7 +49,7 @@ class RoomsController < ApplicationController
   private
 
   def room_params
-    params[:room].permit(:name,:description,:rules,:user_id,:price,:city_id,:address,:images,:is_authorized )
+    params[:room].permit(:name,:description,:rules,:user_id,:price,:city_id,:address,:is_authorized,{images: []})
   end
   
 end

@@ -10,7 +10,7 @@
 	<li> 
 		<%= link_to room.name,room_path(room.id) %>
 		- INR <%= room.price%> - 
-		<%= image_tag room.images, size: "60x50"%> 
+		<%= image_tag room.images[1], size: "60x50"%> 
 	</li>
 	<% end %>
 	<% end %>
