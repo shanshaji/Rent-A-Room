@@ -59,7 +59,7 @@ class Booking < ApplicationRecord
 	def send_confirmation
 		NotifierJob.perform_later(self)   
   	end
-  def approve_booking
-  	NotifierJob.perform_later(self)
-  end
+  	def approve_booking
+  		NotifierJob.perform_later(self)
+  	end
 end

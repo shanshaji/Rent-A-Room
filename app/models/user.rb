@@ -4,6 +4,7 @@ class User < ApplicationRecord
   belongs_to :role
   has_many :rooms
   has_many :bookings
+  has_many :reviews
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates_presence_of :username, :mobile, :role_id

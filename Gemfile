@@ -12,6 +12,7 @@ gem "devise", git: 'https://github.com/plataformatec/devise.git'
 gem 'pry'
 gem 'httparty'
 gem 'carrierwave'
+gem 'react-rails', '~> 1.0'
 gem 'cancancan'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'

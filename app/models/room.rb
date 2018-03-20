@@ -4,6 +4,7 @@ class Room < ApplicationRecord
 	belongs_to :user
   has_many :bookings
   has_many :special_prices
+  has_many :reviews
 	validates_presence_of :name, :description, :price, :rules, :address, :city_id, :user_id
   #validates_numericality_of :latitude, :longitude
   validates_length_of :description, minimum: 150

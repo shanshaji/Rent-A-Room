@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  review_body: MyText
+  food_rating: 1.5
+  cleanliness_rating: 1.5
+  safety_rating: 1.5
+  facility_rating: 1.5
+  locality_rating: 1.5
+  room_id: 1
+  user_id: 1
+
+two:
+  review_body: MyText
+  food_rating: 1.5
+  cleanliness_rating: 1.5
+  safety_rating: 1.5
+  facility_rating: 1.5
+  locality_rating: 1.5
+  room_id: 1
+  user_id: 1

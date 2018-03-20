@@ -4,19 +4,23 @@
 	<h4> No Rooms found </h4>
 
 <% else%>
-<ol>
+	<table border='1'>
+	
 	<% @rooms.each do |room| %>
 	<% if room.is_authorized == true %>
-	<li> 
-		<%= link_to room.name,room_path(room.id) %>
-		- INR <%= room.price%> - 
-		<%= image_tag room.images[1], size: "60x50"%> 
-	</li>
+		
+		<tr>
+			<td><%= link_to room.name,room_path(room.id) %></td>
+			<td>INR <%= room.price%> </td>
+			<td><%= image_tag room.images[1], size: "60x50"%> </td>
+		</tr>
 	<% end %>
 	<% end %>
+	</table>
 <%end %><br/>
 
 <% if (user_signed_in?) && (can? :create, Room.new) %>
 	<%= link_to "Add room", new_room_path %>
 <%end%>
 
+<%= react_component 'Rooms', { data: @rooms } %>

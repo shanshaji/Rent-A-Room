@@ -26,7 +26,43 @@
   </tbody>
 </table>
 
+ <%= react_component 'Cities', { data: @cities } %>
+ <div id="cities" data-url="<%= cities_url%>">
+ </div>
+ <%= javascript_tag do %>
+    window.citiesURL = "<%=j cities_url %>";
+  <% end %>
+
+
 <br>
-<% if (user_signed_in?) && (can? :create, City.new) %>
-  <%= link_to 'New City', new_city_path %>
-<% end %>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addCity">
+              Add a New city
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="addCity" tabindex="-1" role="dialog" aria-labelledby="addCityLable" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="addCityLable">Add a New city</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p id='reviewNotice'> </p> 
+                  <div id='reviewError'></div>
+                  <%= form_for(@city,remote: true) do |f| %>
+                      <div class="form-group">
+                        <%= f.label :name %>
+                        <%= f.text_field :name %>
+                      </div>
+
+                      <div class="actions">
+                        <%= f.submit "Add a new city", class: "btn btn-success"%> 
+                      </div>
+                  <% end %>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>

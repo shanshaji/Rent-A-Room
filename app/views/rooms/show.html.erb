@@ -7,25 +7,33 @@
 	<% end %>
 
 </p>
-<!--<script>
-// var imagesHandle = document.querySelector("#images");
-//     var i = 0;
-//     setInterval(function(){
-// 			var img = document.createElement('img');
-// 			var src = document.createAttribute('src');
-// 			src.value=images[i]
-// 			var text = document.createTextNode(task);
-// 			img.setAttributeNode(src);
-// 			li.appendChild(text);
-// 			imagesHandle.appendChild(img);
-//             i++;
-//             if(i==@room.images.length){
-//                 i=0;
-//             }
-//    },3000);
+<p id="images">  </p>
+<script>
+	var imagesHandle = document.querySelector("#images");
+    var room = <%= @room.to_json.html_safe %>;
+	console.log(room);
+	var i =0
+	var img = document.createElement('img');
+	var src = document.createAttribute('src');
+	var height = document.createAttribute('height');
+	var width = document.createAttribute('width');
+	height.value="600";
+	width.value="900";				
+    setInterval(function(){
+    		src.value = room.images[i]["url"];
+			img.setAttributeNode(src);
+			img.setAttributeNode(height);
+			img.setAttributeNode(width);
+			console.log(img);	
+			imagesHandle.appendChild(img);
+            i ++;
+            if(i==room.images.length){
+                i=0;
+            }
+    },3000);
  </script>
- <p> id="images"  </p> -->
-<%= image_tag @room.images[1], size: "600x315" %>
+ 
+<%#= image_tag @room.images[1], size: "600x315" %>
 <p>  <%= @room.description %> </p>
 <p> INR <%= @room.price %></p>
 <p>	<%= @room.rules %> </p>
@@ -64,3 +72,117 @@
 <% else %>
 	<p> You need to sign in before booking a room</p>
 <% end %>
+
+<% if @room.reviews.empty? %>
+	<p>No reviews found. Be the first one to review.</p>
+<% else %>
+	<h3>Listing Reviews</h3>
+	<ol id='reviewList'>
+		<% @room.reviews.each do |review| %>
+			<li id="review_<%= review.id %>">
+			<p>
+  				<strong>Review body:</strong>
+ 				 <%= review.review_body %>
+			</p>
+			<p>
+				<strong><%=User.find(review.user_id).username %></strong>
+			</p>
+
+  			<strong>Food rating:</strong>
+  			<%= review.food_rating %>
+
+
+  			<strong>Cleanliness rating:</strong>
+  			<%= review.cleanliness_rating %>
+
+
+  			<strong>Safety rating:</strong>
+  			<%= review.safety_rating %>
+
+
+  			<strong>Facility rating:</strong>
+  			<%= review.facility_rating %>
+
+
+  			<strong>Locality rating:</strong>
+  			<%= review.locality_rating %>
+
+			
+
+			<% if (user_signed_in?) &&(can? :update, review) %>
+				
+				-<%= link_to "destroy", review_path(review.id), method: :delete, data: { confirm: "Are you sure you want to delete this review"},remote: true %>
+			<%end%>
+			</li>
+		<% end %>
+	</ol>
+<% end %>
+
+
+<p id='reviewNotice'> </p> 
+<h3>Add your review </h3>
+<div id='reviewError'></div>
+<h2> Reviews </h2>
+<% if user_signed_in?  %>
+	<%= form_for(Review.new, remote: true) do |f| %>
+
+	  <div class="field">
+	    <%= f.label :review_body %>
+	    <%= f.text_area :review_body %>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :food_rating %>
+	    <%= f.radio_button :food_rating, 1 %> 1 
+		<%= f.radio_button :food_rating, 2 %> 2 
+		<%= f.radio_button :food_rating, 3 %> 3 
+		<%= f.radio_button :food_rating, 4 %> 4
+		<%= f.radio_button :food_rating, 5 %> 5  <br/>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :cleanliness_rating %>
+	    <%= f.radio_button :cleanliness_rating, 1 %> 1 
+		<%= f.radio_button :cleanliness_rating, 2 %> 2 
+		<%= f.radio_button :cleanliness_rating, 3 %> 3 
+		<%= f.radio_button :cleanliness_rating, 4 %> 4
+		<%= f.radio_button :cleanliness_rating, 5 %> 5  <br/>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :safety_rating %>
+	    <%= f.radio_button :safety_rating, 1 %> 1 
+		<%= f.radio_button :safety_rating, 2 %> 2 
+		<%= f.radio_button :safety_rating, 3 %> 3 
+		<%= f.radio_button :safety_rating, 4 %> 4
+		<%= f.radio_button :safety_rating, 5 %> 5  <br/>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :facility_rating %>
+	    <%= f.radio_button :facility_rating, 1 %> 1 
+		<%= f.radio_button :facility_rating, 2 %> 2 
+		<%= f.radio_button :facility_rating, 3 %> 3 
+		<%= f.radio_button :facility_rating, 4 %> 4
+		<%= f.radio_button :facility_rating, 5 %> 5  <br/>
+	  </div>
+
+	  <div class="field">
+	    <%= f.label :locality_rating %>
+	    <%= f.radio_button :locality_rating, 1 %> 1 
+		<%= f.radio_button :locality_rating, 2 %> 2 
+		<%= f.radio_button :locality_rating, 3 %> 3 
+		<%= f.radio_button :locality_rating, 4 %> 4
+		<%= f.radio_button :locality_rating, 5 %> 5  <br/>
+	  </div>
+
+	  <div class="field">
+	    <%= f.hidden_field :room_id, value: @room.id %> 
+	  </div>
+
+	  <div class="actions">
+	    <%= f.submit %>
+	  </div>
+	<% end %>
+<% end %>
+
