@@ -27,8 +27,6 @@
 </table>
 
  <%= react_component 'Cities', { data: @cities } %>
- <div id="cities" data-url="<%= cities_url%>">
- </div>
  <%= javascript_tag do %>
     window.citiesURL = "<%=j cities_url %>";
   <% end %>
